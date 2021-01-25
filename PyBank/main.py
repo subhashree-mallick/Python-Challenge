@@ -20,7 +20,7 @@ with open (csvpath) as csvfile:
     csvreader=csv.reader(csvfile,delimiter=',')
     #Skip the header
     csv_header=next(csvreader)
-    print(f"csv hearder: {csv_header} ")
+    #print(f"csv hearder: {csv_header} ")
     #
     first_row=next(csvreader)
     prev_net=int(first_row[1])
@@ -48,12 +48,23 @@ with open (csvpath) as csvfile:
     net_monthly_change=sum(net_profitloss) /len(net_profitloss) 
 
 
-with open(outputpath,"W") as txt_file:
-    txt_file.write(
-        print(f"Total number of month : {len(Total_number_of_month)} ")
-        print("Total profit/loss :", total_amount)
-        print(f"Average of monthly changes : {net_monthly_change:.2f}")
-        print(f"greatest increase in profits : {greatest_increase_in_profit[0]} (${greatest_increase_in_profit[1]})")
-        print(f"greatest decrease in profits : {greatest_decrease_in_profit[0]} (${greatest_decrease_in_profit[1]})"))
+with open(outputpath,"w") as txt_file:
+    summary = (f"Financial Analysis\n"
+                f"----------------------\n"
+                f"Total Months: {len(Total_number_of_month)}\n"
+                f"Total: {total_amount}\n"
+                f"Average change: {net_monthly_change:.2f}\n"
+                f"Greatest increase in profits: {greatest_increase_in_profit[0]} (${greatest_increase_in_profit[1]})\n"
+                f"Greatest decrease in profits: {greatest_decrease_in_profit[0]} (${greatest_decrease_in_profit[1]})\n"
+                )
+    print(summary)            
+    txt_file.write(summary)
+
+    
+        # print(f"Total number of month : {len(Total_number_of_month)} ")
+        # print("Total profit/loss :", total_amount)
+        # print(f"Average of monthly changes : {net_monthly_change:.2f}")
+        # print(f"greatest increase in profits : {greatest_increase_in_profit[0]} (${greatest_increase_in_profit[1]})")
+        # print(f"greatest decrease in profits : {greatest_decrease_in_profit[0]} (${greatest_decrease_in_profit[1]})"))
     
    

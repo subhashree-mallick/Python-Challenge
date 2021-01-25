@@ -17,7 +17,7 @@ with open (csvpath,'r')as csvfile:
     csvreader=csv.reader(csvfile,delimiter=',')
     #read the header
     csvheader=next(csvreader)
-    print(csvheader)
+    # print(csvheader)
 
     #For each row...
     for row in csvreader:
@@ -30,19 +30,32 @@ with open (csvpath,'r')as csvfile:
             candidate_list.append(candidate_name)
             candidate_votes[candidate_name]=0
         candidate_votes[candidate_name] = candidate_votes[candidate_name] + 1 
-        
-print(f"total votes :{total_votes}") 
-#print(f"{candidate_list}")
-print(f"{candidate_votes}")          
 
-    #for loop for winning candidate
-for candidate in candidate_votes:
-    votes=candidate_votes.get(candidate)
-    vote_percentage= float(votes /total_votes)*100 
-    print(f"{candidate}: {vote_percentage:.3f}% {votes}")   
+with open(outputpath,"w") as outputfile: 
+    results=(f"Election Results\n"
+             f"-----------------------\n"
+             f"Total Votes : {total_votes}\n"
+             f"-------------------------\n")   
+    print(results) 
+    outputfile.write(results)
+    #print(f"{candidate_list}")
+    #print(f"{candidate_votes}")          
 
-    if (votes > winning_vote_count):
-        winning_vote_count = votes 
-        winner=candidate  
+        #for loop for winning candidate
+    for candidate in candidate_votes:
+        votes=candidate_votes.get(candidate)
+        vote_percentage= float(votes /total_votes)*100 
+        voteresult=(f"{candidate}: {vote_percentage:.3f}% ({votes})\n")
+        print(voteresult)
+        outputfile.write(voteresult)   
+
+        if (votes > winning_vote_count):
+            winning_vote_count = votes 
+            winner=candidate  
+
+    winningteam=(f"-------------------------\n"
+                 f"winner : {winner}\n"
+                 f"-------------------------") 
+    print(winningteam)
+    outputfile.write(winningteam)
       
-print(f"winner is : {winner}")
