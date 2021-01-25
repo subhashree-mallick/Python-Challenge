@@ -3,7 +3,7 @@ import os
 import csv
 
 #Intial Variables
-Total_number_of_month=[]
+total_months=0
 total_profitloss=[]
 net_profitloss=[]
 greatest_increase_in_profit=["", 0]
@@ -20,15 +20,16 @@ with open (csvpath) as csvfile:
     csvreader=csv.reader(csvfile,delimiter=',')
     #Skip the header
     csv_header=next(csvreader)
-    #print(f"csv hearder: {csv_header} ")
-    #
+    #Extract first row to avoid appending to net profit loss
     first_row=next(csvreader)
+    total_months+=1
+    total_amount+= int(first_row[1])
     prev_net=int(first_row[1])
     
 
     #Read each row of data.
     for row in csvreader:
-        Total_number_of_month.append(row[0])
+        total_months+=1
         total_amount=total_amount+int(row[1])
         #calculation for net change over the entire period
         net_change=int(row[1])-prev_net
@@ -51,9 +52,9 @@ with open (csvpath) as csvfile:
 with open(outputpath,"w") as txt_file:
     summary = (f"Financial Analysis\n"
                 f"----------------------\n"
-                f"Total Months: {len(Total_number_of_month)}\n"
-                f"Total: {total_amount}\n"
-                f"Average change: {net_monthly_change:.2f}\n"
+                f"Total Months: {total_months}\n"
+                f"Total: $ {total_amount}\n"
+                f"Average change: $ {net_monthly_change:.2f}\n"
                 f"Greatest increase in profits: {greatest_increase_in_profit[0]} (${greatest_increase_in_profit[1]})\n"
                 f"Greatest decrease in profits: {greatest_decrease_in_profit[0]} (${greatest_decrease_in_profit[1]})\n"
                 )
@@ -61,10 +62,5 @@ with open(outputpath,"w") as txt_file:
     txt_file.write(summary)
 
     
-        # print(f"Total number of month : {len(Total_number_of_month)} ")
-        # print("Total profit/loss :", total_amount)
-        # print(f"Average of monthly changes : {net_monthly_change:.2f}")
-        # print(f"greatest increase in profits : {greatest_increase_in_profit[0]} (${greatest_increase_in_profit[1]})")
-        # print(f"greatest decrease in profits : {greatest_decrease_in_profit[0]} (${greatest_decrease_in_profit[1]})"))
-    
+       
    

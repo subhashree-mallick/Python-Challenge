@@ -8,7 +8,6 @@ outputpath=os.path.join('Analysis','election_analysis.txt')
 total_votes=0
 candidate_list=[]
 candidate_votes={}
-
 winning_vote_count=0
 winner=""
 
@@ -37,11 +36,9 @@ with open(outputpath,"w") as outputfile:
              f"Total Votes : {total_votes}\n"
              f"-------------------------\n")   
     print(results) 
-    outputfile.write(results)
-    #print(f"{candidate_list}")
-    #print(f"{candidate_votes}")          
+    outputfile.write(results)          
 
-        #for loop for winning candidate
+    #for loop for winning candidate
     for candidate in candidate_votes:
         votes=candidate_votes.get(candidate)
         vote_percentage= float(votes /total_votes)*100 
